@@ -1,0 +1,22 @@
+data :
+  name: MVTec 
+  data_dir: datasets/MVTec
+  category: 'bottle'   # 변경 가능: bottle, cable, capsule, carpet, grid, hazelnut, leather, metal_nut, pill, screw, tile, toothbrush, transistor, wood, zipper
+  image_size: 256 
+  batch_size: 8
+  mask : True 
+  imput_channel : 3
+
+model:
+  checkpoint_dir: checkpoints/MVTec
+  resnet: wide_resnet101_2
+  learning_rate: 3e-4 
+  weight_decay: 0.05 
+  epochs: 500         # 전체 학습 에폭 (시간이 오래 걸리면 500~1000으로 줄여도 됨)
+  epochs_checkpoint: 100  # 체크포인트 저장 간격
+  diffusion_steps: 1000
+  beta_start : 0.0001
+  beta_end : 0.02 
+  device: 'cuda'
+  num_workers : 0      # Windows에서는 0으로 설정 (멀티프로세싱 오류 방지)
+

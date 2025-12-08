@@ -1,0 +1,49 @@
+# MDPS 불량 복원 설정 파일
+# Default Configuration for Defect Reconstruction
+
+data:
+  name: Custom  # 데이터셋 이름 (MVTec, BTAD, Custom)
+  data_dir: data/input  # 입력 이미지 경로
+  output_dir: data/output  # 출력 이미지 경로
+  image_size: 256  # 이미지 크기 (256x256)
+  batch_size: 1  # 배치 크기
+  mask: True  # 마스크 사용 여부
+  imput_channel: 3  # 입력 채널 (RGB: 3)
+
+model:
+  checkpoint_dir: checkpoints  # 체크포인트 경로
+  checkpoint_file: null  # 사용할 체크포인트 파일명 (null이면 자동 검색)
+  resnet: wide_resnet101_2  # 특징 추출 모델
+  eta: 7  # MSE와 LPIPS 비율
+  
+  # Diffusion 파라미터
+  diffusion_steps: 1000  # 전체 diffusion 스텝
+  test_steps: 200  # 테스트 시 사용할 스텝
+  skip: 20  # 스킵 간격
+  
+  # Guidance 파라미터
+  w: 100  # 조건 가이던스 강도
+  w_mask: 50  # 마스크 가이던스 강도
+  
+  # 마스크 관련 파라미터
+  mask_steps: 200  # 마스크 생성 스텝
+  skip_mask: 20  # 마스크 스킵 간격
+  mask0_thresholds: 0.12  # 마스크 임계값
+  mask_repeat: 1  # 마스크 반복 횟수
+  test_repeat: 1  # 테스트 반복 횟수
+  
+  # Noise 스케줄
+  beta_start: 0.0001
+  beta_end: 0.02
+  
+  # 하드웨어 설정
+  device: 'cuda'  # 'cuda' 또는 'cpu'
+  num_workers: 4
+
+# 시각화 설정
+visualization:
+  save_intermediate: False  # 중간 결과 저장 여부
+  save_anomaly_map: True  # Anomaly map 저장 여부
+  colormap: 'jet'  # Anomaly map 컬러맵
+
+
